@@ -280,12 +280,23 @@ public class JenksFisher {
     public static List<Double> createJenksFisherBreaksArray(List<Double> values, int k){
         List<ValueCountPair>sortedUniqueValueCounts = getValueCountPairs(values);
         
+        return createJenksFisherBreaksArrayFromSortedUniqueValueCounts(sortedUniqueValueCounts, k);
+    }
+    
+    /**
+     * Main entry point for creation of Jenks-Fisher natural breaks.
+     *
+     * @param sortedUniqueValueCounts array of the sorted Unique ValueCounts.
+     * @param k number of breaks to create
+     * @return Array with breaks
+     */
+    public static List<Double> createJenksFisherBreaksArrayFromSortedUniqueValueCounts(List<ValueCountPair> sortedUniqueValueCounts, int k) {
         double[] breaksArray = null;
         if (sortedUniqueValueCounts.size()>k){
             breaksArray = classifyJenksFisherFromValueCountPairs(k, sortedUniqueValueCounts);
         }   
         else {
-           int i=0;
+            int i=0;
             for (ValueCountPair vcp : sortedUniqueValueCounts) {
                 breaksArray[i] = vcp.getValue();
                 i++;
